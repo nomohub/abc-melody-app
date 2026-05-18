@@ -1,0 +1,1278 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2685.3">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 12.0px Helvetica; min-height: 14.0px}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;!doctype html&gt;</p>
+<p class="p1">&lt;html lang="ja"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="utf-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;ABC Melody Staff App&lt;/title&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>:root {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--ink: #27231f;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--muted: #766f66;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--line: #ded6c8;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--accent: #7a5c3e;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--accent-dark: #563f2a;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--danger: #b45309;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--ok: #2f6f4e;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>--shadow: 0 18px 45px rgba(39, 35, 31, 0.12);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>* { box-sizing: border-box; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-height: 100vh;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--ink);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: linear-gradient(135deg, #f6f3ee, #ebe4d8);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", "Yu Gothic UI", sans-serif;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.app {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: min(1180px, calc(100vw - 32px));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 auto;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 32px 0 48px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>header {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: end;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin-bottom: 22px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>h1 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0 0 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: clamp(28px, 4vw, 44px);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.05;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>letter-spacing: -0.04em;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.lead {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 15px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.7;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.badge {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 8px 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255,255,255,0.58);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>white-space: nowrap;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.grid {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>grid-template-columns: 420px 1fr;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: start;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255, 253, 248, 0.92);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid rgba(222, 214, 200, 0.85);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 24px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>box-shadow: var(--shadow);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow: hidden;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card-head {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 18px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-bottom: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>justify-content: space-between;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.card-head h2 {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 17px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>textarea {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>width: 100%;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-height: 360px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>resize: vertical;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 18px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--ink);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.55;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>outline: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.chord-box {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: rgba(255,255,255,0.32);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.chord-box textarea { min-height: 120px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.mini-note {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 0 20px 14px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.controls {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px 20px 20px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.row {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: flex;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flex-wrap: wrap;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>align-items: center;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>appearance: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 999px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 11px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: var(--accent);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>cursor: pointer;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button:hover { background: var(--accent-dark); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>button.secondary {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #eee6da;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--ink);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>label {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: grid;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gap: 6px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-weight: 700;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>input[type="number"], select {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #fffaf1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--ink);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 9px 10px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font: inherit;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-width: 92px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>input[type="range"] { width: 120px; }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.score-wrap {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 16px 18px 24px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-height: 420px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>overflow-x: auto;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>#score {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: #fff;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-radius: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 12px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>min-width: 680px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.status, .test-panel {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.6;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 0 20px 16px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.error { color: var(--danger); }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.ok { color: var(--ok); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.hint {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding: 14px 20px 18px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: var(--muted);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>font-size: 13px;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>line-height: 1.75;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.test-panel {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>border-top: 1px solid var(--line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-top: 14px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>.test-panel ul {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>margin: 8px 0 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-left: 18px;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>@media (max-width: 900px) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>.grid { grid-template-columns: 1fr; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>header { align-items: start; flex-direction: column; }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>#score { min-width: 620px; }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="app"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;header&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;h1&gt;ABC Melody Staff App&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="lead"&gt;ABC欄のメロディーだけを五線譜に変換します。メロディーも伴奏もピアノ風で再生します。&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="badge"&gt;ピアノメロディー + ピアノ伴奏&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;section class="grid"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h2&gt;ABC譜 メロディー&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button class="secondary" id="sampleBtn" type="button"&gt;サンプルに戻す&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="controls"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="renderBtn" type="button"&gt;五線譜にする&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="unlockAudioBtn" type="button"&gt;音声を有効化&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button id="playBtn" type="button"&gt;再生&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="secondary" id="stopBtn" type="button"&gt;停止&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button class="secondary" id="testBtn" type="button"&gt;テスト音&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="row"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label&gt;テンポ</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;input id="tempoInput" type="number" min="40" max="240" value="112"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label&gt;音量</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;input id="volumeInput" type="range" min="0" max="1" step="0.05" value="0.75"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label&gt;伴奏</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;select id="accompSelect"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="on" selected&gt;ピアノ伴奏あり&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;option value="off"&gt;メロディーのみ&lt;/option&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/select&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea id="abcInput" spellcheck="false"&gt;&lt;/textarea&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="chord-box"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="card-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h2&gt;コード譜 伴奏用&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;textarea id="chordInput" spellcheck="false"&gt;&lt;/textarea&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="mini-note"&gt;ここに入れたコード進行は再生時のピアノ伴奏だけに使います。五線譜には表示しません。&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="hint"&gt;五線譜はアプリ内で直接描画します。ABC欄にコード名が混ざっていても、自動で取り除いて表示します。&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="card"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="card-head"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h2&gt;五線譜&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="score-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div id="score"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="status" class="status"&gt;準備できています。&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="testPanel" class="test-panel"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>'use strict';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var LF = String.fromCharCode(10);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var CR = String.fromCharCode(13);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var QUOTE = String.fromCharCode(34);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var APOST = String.fromCharCode(39);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var SAMPLE_LINES = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'X:1',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'T:C Major Modern Jazz Etude',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'M:4/4',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'L:1/8',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'Q:1/4=112',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'K:C',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'D2 z2 F A {^G}A c | _B _A G B _D _E F G |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'E2 z G B ^F G d | c B A G E2 z A |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'D2 z2 F A c B | _B _A G B _D _E F G |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'D2 z2 F E G A | E2 z G B A G E |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'D2 z2 F A {^G}A c | G _A _B B _D _E F G |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'C2 z2 E G {^F}G B | c B A G ^F2 z E |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'D2 z2 F A c B | B _D _E F _A _B B _A |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'E2 z2 G B {^F}G E | A2 z2 C E {^G}A c |'</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var SAMPLE_CHORD_LINES = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'Dm7 | G7alt | Cmaj7(#11) | Am7 |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'Dm7 | G7alt | Cmaj7<span class="Apple-converted-space">      </span>| Am7 |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'Dm7 | G7alt | Cmaj7(#11) | Am7 |',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>'Dm7 | G7alt | Cmaj7(#11) | Am7 |'</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var SAMPLE_ABC = SAMPLE_LINES.join(LF);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var SAMPLE_CHORDS = SAMPLE_CHORD_LINES.join(LF);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var abcInput = document.getElementById('abcInput');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var chordInput = document.getElementById('chordInput');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var statusEl = document.getElementById('status');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var testPanel = document.getElementById('testPanel');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var tempoInput = document.getElementById('tempoInput');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var volumeInput = document.getElementById('volumeInput');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var accompSelect = document.getElementById('accompSelect');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var scoreEl = document.getElementById('score');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>var visualObj = null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var audioContext = null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var activeNodes = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var timers = [];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var masterGain = null;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>var reverbDelay = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>abcInput.value = SAMPLE_ABC;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>chordInput.value = SAMPLE_CHORDS;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function setStatus(message, isError) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>statusEl.innerHTML = message;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>statusEl.className = isError ? 'status error' : 'status';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function escapeHtml(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return String(text)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.split('&amp;').join('&amp;amp;')</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.split('&lt;').join('&amp;lt;')</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.split('&gt;').join('&amp;gt;')</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.split(QUOTE).join('&amp;quot;');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function normalizeNewlines(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return String(text || '').split(CR + LF).join(LF).split(CR).join(LF);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function stripChordSymbols(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var input = String(text || '');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var output = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var insideQuote = false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; input.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var ch = input[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (ch === QUOTE) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>insideQuote = !insideQuote;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (!insideQuote) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>output += ch;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return output;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function hasChordSymbols(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return String(text || '').indexOf(QUOTE) !== -1;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function isHeaderLine(line) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!line || line.length &lt; 2) return false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var code = line.charCodeAt(0);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return code &gt;= 65 &amp;&amp; code &lt;= 90 &amp;&amp; line[1] === ':';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function removeGraceNotes(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var output = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var inside = false;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; text.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[i] === '{') {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>inside = true;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (text[i] === '}') {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>inside = false;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (!inside) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>output += text[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return output;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function melodyBodyText(rawAbc) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var lines = normalizeNewlines(stripChordSymbols(rawAbc)).split(LF);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var body = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; lines.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var line = lines[i].trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!isHeaderLine(line)) body.push(line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return removeGraceNotes(body.join(' '));</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function cleanTokenText(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var out = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; text.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var ch = text[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (ch === '|' || ch === '[' || ch === ']' || ch === '(' || ch === ')') out += ' ';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>else out += ch;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return out;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function tokenizeMelody(rawAbc) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var raw = cleanTokenText(melodyBodyText(rawAbc)).split(' ');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tokens = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; raw.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var token = raw[i].trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (token) tokens.push(token);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return tokens;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function melodyBodyTextWithGrace(rawAbc) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var lines = normalizeNewlines(stripChordSymbols(rawAbc)).split(LF);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var body = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; lines.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var line = lines[i].trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!isHeaderLine(line)) body.push(line);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return body.join(' ');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function tokenizeMelodyForPlayback(rawAbc) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var text = melodyBodyTextWithGrace(rawAbc);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tokens = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var current = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var i;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>function flushCurrent() {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var token = current.trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (token) tokens.push(token);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>current = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (i = 0; i &lt; text.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var ch = text[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (ch === '{') {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>flushCurrent();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var grace = '';</p>
+<p class="p1"><span class="Apple-converted-space">          </span>i += 1;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>while (i &lt; text.length &amp;&amp; text[i] !== '}') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>grace += text[i];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>i += 1;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>grace = grace.trim();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (grace) tokens.push('GRACE:' + grace);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else if (ch === '|' || ch === '[' || ch === ']' || ch === '(' || ch === ')' || ch === ' ') {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>flushCurrent();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>current += ch;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>flushCurrent();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return tokens;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function parseGraceToken(token) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var text = String(token || '');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (text.indexOf('GRACE:') !== 0) return null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return text.slice(6).trim();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function parseAbcPitch(token) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var text = String(token || '');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var pos = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var accidental = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>while (text[pos] === '^' || text[pos] === '_' || text[pos] === '=') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === '^') accidental += 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === '_') accidental -= 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var note = text[pos];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var base = { C: 60, D: 62, E: 64, F: 65, G: 67, A: 69, B: 71, c: 72, d: 74, e: 76, f: 77, g: 79, a: 81, b: 83 };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (base[note] === undefined) return null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var midi = base[note] + accidental;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>while (pos &lt; text.length) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === ',') midi -= 12;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === APOST) midi += 12;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return midi;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function parseAbcStaffStep(token) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var text = String(token || '');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var pos = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>while (text[pos] === '^' || text[pos] === '_' || text[pos] === '=') pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var note = text[pos];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var scale = { C: 0, D: 1, E: 2, F: 3, G: 4, A: 5, B: 6 };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!note || scale[note.toUpperCase()] === undefined) return null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var octave = note &gt;= 'a' &amp;&amp; note &lt;= 'g' ? 5 : 4;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>while (pos &lt; text.length) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === ',') octave -= 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === APOST) octave += 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return octave * 7 + scale[note.toUpperCase()];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function staffYForStep(step, staffTop) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var e4 = 4 * 7 + 2;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var distanceFromE4 = step - e4;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var bottomLineY = staffTop + 40;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return bottomLineY - distanceFromE4 * 5;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function abcNoteName(token) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var text = String(token || '');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var pos = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var accidentalText = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>while (text[pos] === '^' || text[pos] === '_' || text[pos] === '=') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === '^') accidentalText = '#';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (text[pos] === '_') accidentalText = 'b';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pos += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return accidentalText + String(text[pos] || '').toUpperCase();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function parseDurationBeats(token) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var text = String(token || '');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var numberText = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var slashIndex = text.indexOf('/');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; text.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var ch = text[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (ch &gt;= '0' &amp;&amp; ch &lt;= '9') numberText += ch;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (ch === '/') break;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var whole = numberText ? Number(numberText) : 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (slashIndex !== -1) return whole * 0.25;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return whole * 0.5;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getMelodyEventsFromAbc(rawAbc, includeGrace) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tokens = includeGrace ? tokenizeMelodyForPlayback(rawAbc) : tokenizeMelody(rawAbc);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var events = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var beat = 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var pendingGrace = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var graceDuration = 0.50;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var minMainAfterGrace = 1 / 3;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; tokens.length; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var token = tokens[i];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var graceToken = parseGraceToken(token);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (graceToken) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>pendingGrace.push(graceToken);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>continue;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>var duration = parseDurationBeats(token);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (token[0] === 'z') {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>events.push({ type: 'rest', beat: beat, duration: duration, label: 'z' });</p>
+<p class="p1"><span class="Apple-converted-space">          </span>beat += duration;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>pendingGrace = [];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>continue;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>var midi = parseAbcPitch(token);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (midi !== null) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var mainBeat = beat;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var mainDuration = duration;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (includeGrace &amp;&amp; pendingGrace.length) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var availableGrace = Math.max(0.08, duration - minMainAfterGrace);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var actualGraceDuration = Math.min(graceDuration, availableGrace);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var graceStart = beat;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>for (var g = 0; g &lt; pendingGrace.length; g += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>var graceMidi = parseAbcPitch(pendingGrace[g]);</p>
+<p class="p1"><span class="Apple-converted-space">              </span>if (graceMidi !== null) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>events.push({</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>type: 'grace',</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>midi: graceMidi,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>staffStep: parseAbcStaffStep(pendingGrace[g]),</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>beat: graceStart + g * actualGraceDuration,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>duration: actualGraceDuration,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>label: abcNoteName(pendingGrace[g])</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">              </span>}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainBeat = beat + actualGraceDuration * pendingGrace.length;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mainDuration = Math.max(minMainAfterGrace, duration - actualGraceDuration * pendingGrace.length);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>events.push({ type: 'note', midi: midi, staffStep: parseAbcStaffStep(token), beat: mainBeat, duration: mainDuration, label: abcNoteName(token) });</p>
+<p class="p1"><span class="Apple-converted-space">          </span>beat += duration;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>pendingGrace = [];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return events;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function totalBeatsFromEvents(events) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!events.length) return 0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var last = events[events.length - 1];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return last.beat + last.duration;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function isAlignedToFourBeats(events) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var total = totalBeatsFromEvents(events);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return Math.abs(total - Math.round(total / 4) * 4) &lt; 0.0001;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function drawLedgerLines(parts, x, y, staffTop) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var bottom = staffTop + 40;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var top = staffTop;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var lineY;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (y &gt; bottom + 4) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lineY = bottom + 10;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>while (lineY &lt;= y + 3) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>parts.push('&lt;line x1="' + (x - 10) + '" y1="' + lineY + '" x2="' + (x + 10) + '" y2="' + lineY + '" stroke="#27231f" stroke-width="1"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>lineY += 10;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (y &lt; top - 4) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lineY = top - 10;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>while (lineY &gt;= y - 3) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>parts.push('&lt;line x1="' + (x - 10) + '" y1="' + lineY + '" x2="' + (x + 10) + '" y2="' + lineY + '" stroke="#27231f" stroke-width="1"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>lineY -= 10;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function drawRest(parts, x, y, duration) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (duration &gt;= 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>parts.push('&lt;rect x="' + (x - 7) + '" y="' + (y - 4) + '" width="14" height="5" fill="#27231f"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>parts.push('&lt;text x="' + (x - 7) + '" y="' + (y + 8) + '" font-size="24" font-family="serif" fill="#27231f"&gt;𝄾&lt;/text&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function noteHeadAttrs(duration) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (duration &gt;= 1) return { fill: '#fff', stroke: '#27231f', strokeWidth: 1.5, stem: false, flag: false };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return { fill: '#27231f', stroke: '#27231f', strokeWidth: 1, stem: true, flag: duration &lt;= 0.5 };</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderScore(updateMessage) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var events = getMelodyEventsFromAbc(abcInput.value);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!events.length) throw new Error('メロディー音が見つかりませんでした。');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>var measuresPerSystem = 4;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var beatsPerMeasure = 4;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var systemCount = Math.max(1, Math.ceil(totalBeatsFromEvents(events) / (measuresPerSystem * beatsPerMeasure)));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var left = 78;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var right = 18;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var systemWidth = 920;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var measureWidth = (systemWidth - left - right) / measuresPerSystem;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var beatWidth = measureWidth / beatsPerMeasure;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var measureInnerLeft = 22;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var measureInnerRight = 6;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var drawableMeasureWidth = measureWidth - measureInnerLeft - measureInnerRight;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var drawableBeatWidth = drawableMeasureWidth / beatsPerMeasure;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var systemHeight = 132;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var titleHeight = 42;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var width = systemWidth;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var height = titleHeight + systemCount * systemHeight + 28;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var parts = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>parts.push('&lt;svg xmlns="http://www.w3.org/2000/svg" width="' + width + '" height="' + height + '" viewBox="0 0 ' + width + ' ' + height + '"&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>parts.push('&lt;rect x="0" y="0" width="' + width + '" height="' + height + '" fill="#fff"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>parts.push('&lt;text x="24" y="28" font-size="18" font-family="serif" fill="#27231f"&gt;C Major Modern Jazz Etude&lt;/text&gt;');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (var s = 0; s &lt; systemCount; s += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var staffTop = titleHeight + 38 + s * systemHeight;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var systemEndX = width - right;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>parts.push('&lt;text x="28" y="' + (staffTop + 42) + '" font-size="44" font-family="serif" fill="#27231f"&gt;𝄞&lt;/text&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>for (var line = 0; line &lt; 5; line += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var yLine = staffTop + line * 10;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>parts.push('&lt;line x1="' + left + '" y1="' + yLine + '" x2="' + systemEndX + '" y2="' + yLine + '" stroke="#27231f" stroke-width="1"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>for (var m = 0; m &lt;= measuresPerSystem; m += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var barX = left + m * beatsPerMeasure * beatWidth;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>parts.push('&lt;line x1="' + barX + '" y1="' + staffTop + '" x2="' + barX + '" y2="' + (staffTop + 40) + '" stroke="#27231f" stroke-width="1"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>for (var j = 0; j &lt; events.length; j += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var ev = events[j];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var systemIndex = Math.floor(ev.beat / (measuresPerSystem * beatsPerMeasure));</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var localBeat = ev.beat - systemIndex * measuresPerSystem * beatsPerMeasure;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var staffTopForEvent = titleHeight + 38 + systemIndex * systemHeight;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var measureIndex = Math.floor(localBeat / beatsPerMeasure);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var beatInMeasure = localBeat - measureIndex * beatsPerMeasure;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var x = left + measureIndex * measureWidth + measureInnerLeft + beatInMeasure * drawableBeatWidth;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (beatInMeasure &gt;= 3) x -= 1;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (ev.type === 'rest') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>drawRest(parts, x, staffTopForEvent + 20, ev.duration);</p>
+<p class="p1"><span class="Apple-converted-space">            </span>continue;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>var y = staffYForStep(ev.staffStep, staffTopForEvent);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var attrs = noteHeadAttrs(ev.duration);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>drawLedgerLines(parts, x, y, staffTopForEvent);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>parts.push('&lt;ellipse cx="' + x + '" cy="' + y + '" rx="5.8" ry="4.1" fill="' + attrs.fill + '" stroke="' + attrs.stroke + '" stroke-width="' + attrs.strokeWidth + '" transform="rotate(-18 ' + x + ' ' + y + ')"/&gt;');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (attrs.stem) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var stemTop = y - 32;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>parts.push('&lt;line x1="' + (x + 5.5) + '" y1="' + y + '" x2="' + (x + 5.5) + '" y2="' + stemTop + '" stroke="#27231f" stroke-width="1.4"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (attrs.flag) {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>parts.push('&lt;path d="M ' + (x + 5.5) + ' ' + stemTop + ' C ' + (x + 20) + ' ' + (stemTop + 5) + ', ' + (x + 18) + ' ' + (stemTop + 17) + ', ' + (x + 7) + ' ' + (stemTop + 21) + '" fill="none" stroke="#27231f" stroke-width="1.25"/&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (ev.label.indexOf('#') === 0) parts.push('&lt;text x="' + (x - 19) + '" y="' + (y + 4) + '" font-size="16" fill="#27231f"&gt;#&lt;/text&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (ev.label.indexOf('b') === 0) parts.push('&lt;text x="' + (x - 17) + '" y="' + (y + 4) + '" font-size="16" fill="#27231f"&gt;b&lt;/text&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>parts.push('&lt;/svg&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scoreEl.innerHTML = parts.join('');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>visualObj = { ok: true, eventCount: events.length };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (updateMessage !== false) setStatus('五線譜を表示しました。', false);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>visualObj = null;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>scoreEl.innerHTML = '&lt;div style="padding:16px;color:#b45309;line-height:1.7;"&gt;五線譜に変換できませんでした。&lt;br&gt;&lt;small&gt;' + escapeHtml(error.message || String(error)) + '&lt;/small&gt;&lt;/div&gt;';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus('五線譜に変換できませんでした。', true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function parseChordText(text) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return normalizeNewlines(text)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.split(LF)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.join('|')</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.split('|')</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.map(function(item) { return item.trim(); })</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.filter(function(item) { return item.length &gt; 0; });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function chordToMidiRoot(chordName) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var name = String(chordName || '').trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var roots = { C: 60, D: 62, E: 64, F: 65, G: 67, A: 69, B: 71 };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var root = roots[name[0]];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (root === undefined) return 60;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name[1] === '#') root += 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name[1] === 'b' || name[1] === '♭') root -= 1;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return root;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function chordVoicing(chordName) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var name = String(chordName || '').toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('dm7b5') !== -1) return [62, 65, 68, 72, 75];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('g7alt') !== -1) return [65, 68, 70, 75, 80];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('cmmaj7') !== -1 || name.indexOf('cmmaj') !== -1) return [63, 71, 74, 79, 86];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('cm7') !== -1) return [63, 70, 74, 79, 82];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('am7b5') !== -1) return [60, 67, 70, 75, 79];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('dm7') !== -1) return [62, 65, 69, 72, 76];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('cmaj7') !== -1 &amp;&amp; name.indexOf('#11') !== -1) return [64, 71, 74, 78, 83];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('cmaj7') !== -1) return [64, 71, 74, 79, 83];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (name.indexOf('am7') !== -1) return [64, 67, 71, 74, 76];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var root = chordToMidiRoot(chordName);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return [root + 4, root + 10, root + 14];</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getChordEventsFromChordInput() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var names = parseChordText(chordInput.value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return names.map(function(name, index) { return { name: name, beat: index * 4 }; });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function ensureAudioContext() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var AudioCtor = window.AudioContext || window.webkitAudioContext;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!AudioCtor) throw new Error('Web Audio API is not available in this browser.');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!audioContext || audioContext.state === 'closed') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>audioContext = new AudioCtor();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setupOutputChain(audioContext);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return audioContext;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function setupOutputChain(ctx) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>masterGain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>masterGain.gain.value = 1.0;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>reverbDelay = ctx.createDelay(1.0);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>reverbDelay.delayTime.value = 0.16;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var feedback = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>feedback.gain.value = 0.26;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var tone = ctx.createBiquadFilter();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tone.type = 'lowpass';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tone.frequency.value = 2400;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>reverbDelay.connect(feedback);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>feedback.connect(tone);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tone.connect(reverbDelay);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>reverbDelay.connect(ctx.destination);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>masterGain.connect(ctx.destination);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function midiToFreq(midi) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return 440 * Math.pow(2, (midi - 69) / 12);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function makeDriveCurve(amount) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var samples = 256;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var curve = new Float32Array(samples);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var drive = Math.max(0, Math.min(1, amount || 0));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var k = 30 * drive;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>for (var i = 0; i &lt; samples; i += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var x = i * 2 / samples - 1;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>curve[i] = (1 + k) * x / (1 + k * Math.abs(x));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return curve;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function scheduleTone(ctx, midi, start, duration, options) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var opts = Object.assign({ type: 'sine', gain: 0.1, filter: null, attack: 0.02, release: 0.05, sustain: 0.8, overlap: 0, slideFrom: null, slideTime: 0.055, reverbSend: 0.04, vibratoDepth: 0, vibratoRate: 5.2, drive: 0 }, options || {});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var osc = ctx.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var gain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var filter = opts.filter ? ctx.createBiquadFilter() : null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var shaper = opts.drive ? ctx.createWaveShaper() : null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var sendGain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var safeDuration = Math.max(0.08, duration + opts.overlap);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var volume = Number(volumeInput.value || 0.75);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var targetGain = opts.gain * volume;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var attack = Math.min(opts.attack, safeDuration * 0.35);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var endTime = start + safeDuration;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var releaseTime = Math.min(opts.release, safeDuration * 0.55);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var releaseStart = Math.max(start + attack + 0.02, endTime - releaseTime);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var targetFreq = midiToFreq(midi);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.type = opts.type;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (opts.vibratoDepth &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var lfo = ctx.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var lfoGain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.type = 'sine';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.frequency.setValueAtTime(opts.vibratoRate, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.gain.setValueAtTime(0, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.gain.linearRampToValueAtTime(opts.vibratoDepth, start + Math.min(0.18, safeDuration * 0.45));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.gain.linearRampToValueAtTime(opts.vibratoDepth * 0.75, endTime);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.connect(lfoGain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.connect(osc.detune);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.start(start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.stop(endTime + 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>activeNodes.push(lfo);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (opts.slideFrom !== null) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>osc.frequency.setValueAtTime(midiToFreq(opts.slideFrom), start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>osc.frequency.exponentialRampToValueAtTime(targetFreq, start + Math.min(opts.slideTime, safeDuration * 0.72));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>osc.frequency.setValueAtTime(targetFreq, start);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(0.0001, start);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(targetGain, start + attack);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(targetGain * opts.sustain, releaseStart);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(0.0001, endTime);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (shaper) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>shaper.curve = makeDriveCurve(opts.drive);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>shaper.oversample = '2x';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (filter) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.type = opts.filter.type;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.frequency.setValueAtTime(opts.filter.frequency, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.Q.setValueAtTime(opts.filter.q || 1, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (shaper) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(shaper);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>shaper.connect(filter);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(filter);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (shaper) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(shaper);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>shaper.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>sendGain.gain.value = opts.reverbSend;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.connect(masterGain || ctx.destination);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (reverbDelay) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>gain.connect(sendGain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sendGain.connect(reverbDelay);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.start(start);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.stop(endTime + 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeNodes.push(osc);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function scheduleSlurTone(ctx, fromMidi, toMidi, start, graceDuration, mainDuration, options) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var opts = Object.assign({ type: 'sawtooth', gain: 0.13, filter: { type: 'bandpass', frequency: 760, q: 1.35 },</p>
+<p class="p1"><span class="Apple-converted-space">              </span>vibratoDepth: 4.5,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>vibratoRate: 5.4,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>drive: 0.16, attack: 0.018, release: 0.16, reverbSend: 0.06, vibratoDepth: 0, vibratoRate: 5.2, drive: 0 }, options || {});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var osc = ctx.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var gain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var filter = opts.filter ? ctx.createBiquadFilter() : null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var shaper = opts.drive ? ctx.createWaveShaper() : null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var sendGain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var volume = Number(volumeInput.value || 0.75);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var targetGain = opts.gain * volume;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var totalDuration = Math.max(0.12, graceDuration + mainDuration);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var endTime = start + totalDuration;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var graceHoldEnd = start + Math.max(0.025, graceDuration * 0.56);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var slideEnd = start + Math.max(0.05, graceDuration * 0.96);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var releaseStart = Math.max(start + 0.04, endTime - opts.release);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.type = opts.type;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (opts.vibratoDepth &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var lfo = ctx.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var lfoGain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.type = 'sine';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.frequency.setValueAtTime(opts.vibratoRate, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.gain.setValueAtTime(0, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.gain.linearRampToValueAtTime(opts.vibratoDepth, start + Math.min(0.2, totalDuration * 0.45));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.gain.linearRampToValueAtTime(opts.vibratoDepth * 0.75, endTime);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.connect(lfoGain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfoGain.connect(osc.detune);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.start(start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>lfo.stop(endTime + 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>activeNodes.push(lfo);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.frequency.setValueAtTime(midiToFreq(fromMidi), start);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.frequency.setValueAtTime(midiToFreq(fromMidi), graceHoldEnd);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.frequency.exponentialRampToValueAtTime(midiToFreq(toMidi), slideEnd);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.frequency.setValueAtTime(midiToFreq(toMidi), slideEnd);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(0.0001, start);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(targetGain * 0.94, start + opts.attack);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(targetGain * 0.94, graceHoldEnd);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(targetGain, slideEnd + 0.01);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(targetGain * 0.88, releaseStart);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(0.0001, endTime);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (shaper) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>shaper.curve = makeDriveCurve(opts.drive);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>shaper.oversample = '2x';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (filter) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.type = opts.filter.type;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.frequency.setValueAtTime(opts.filter.frequency, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.Q.setValueAtTime(opts.filter.q || 1, start);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (shaper) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(shaper);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>shaper.connect(filter);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(filter);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filter.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (shaper) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(shaper);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>shaper.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>osc.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>sendGain.gain.value = opts.reverbSend;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.connect(masterGain || ctx.destination);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (reverbDelay) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>gain.connect(sendGain);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>sendGain.connect(reverbDelay);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.start(start);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.stop(endTime + 0.08);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeNodes.push(osc);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function stopAudio(updateStatus) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>timers.forEach(function(timerId) { window.clearTimeout(timerId); });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>timers = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeNodes.forEach(function(node) { try { node.stop(); } catch (error) {} });</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeNodes = [];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// スマホではAudioContextを閉じると、次のタップで再開できない場合があるため閉じない。</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (updateStatus) setStatus('停止しました。', false);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function playDirectBeep(ctx, frequency, duration, gainValue) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var now = ctx.currentTime;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var osc = ctx.createOscillator();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var gain = ctx.createGain();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.type = 'sine';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.frequency.setValueAtTime(frequency || 880, now);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(0.0001, now);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(gainValue || 0.7, now + 0.02);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.setValueAtTime(gainValue || 0.7, now + Math.max(0.04, duration - 0.08));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.gain.linearRampToValueAtTime(0.0001, now + duration);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.connect(gain);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gain.connect(ctx.destination);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.start(now);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>osc.stop(now + duration + 0.03);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeNodes.push(osc);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function unlockAudio() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var ctx = ensureAudioContext();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return ctx.resume().then(function() {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>// スマホでは「有効化できたか」を確認できるよう、短い確認音を直接出す。</p>
+<p class="p1"><span class="Apple-converted-space">          </span>playDirectBeep(ctx, 880, 0.22, 0.45);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('音声を有効化しました。確認音が聞こえたら再生できます。AudioContext: ' + ctx.state, false);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>return ctx;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}).catch(function(error) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('音声を有効化できませんでした。SafariまたはChromeで開き直してください。エラー: ' + escapeHtml(error.message || String(error)), true);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>return Promise.reject(error);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus('音声を有効化できませんでした。SafariまたはChromeで開き直してください。エラー: ' + escapeHtml(error.message || String(error)), true);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return Promise.reject(error);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function testSound() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>stopAudio(false);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>unlockAudio().then(function(ctx) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>playDirectBeep(ctx, 660, 0.45, 0.85);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('テスト音を鳴らしました。AudioContext: ' + ctx.state, false);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}).catch(function(error) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('テスト音も鳴りません。ブラウザの音量、ミュート、サイトの音声許可を確認してください。', true);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus('テスト音も鳴りません。ブラウザの音量、ミュート、サイトの音声許可を確認してください。', true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function playAudio() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>stopAudio(false);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var allEvents = getMelodyEventsFromAbc(abcInput.value, true);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var melodyEvents = allEvents.filter(function(event) { return event.type === 'note' || event.type === 'grace'; });</p>
+<p class="p1"><span class="Apple-converted-space">        </span>var chordEvents = getChordEventsFromChordInput();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!melodyEvents.length) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('再生できるメロディー音が見つかりませんでした。', true);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>unlockAudio().then(function(ctx) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var tempo = Number(tempoInput.value || 112);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var secondsPerBeat = 60 / tempo;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>var now = ctx.currentTime + 0.08;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>for (var melodyIndex = 0; melodyIndex &lt; melodyEvents.length; melodyIndex += 1) {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var event = melodyEvents[melodyIndex];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var nextMelody = melodyEvents[melodyIndex + 1];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var previous = melodyEvents[melodyIndex - 1];</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var isGrace = event.type === 'grace';</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var followsGrace = previous &amp;&amp; previous.type === 'grace';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>if (isGrace &amp;&amp; nextMelody &amp;&amp; nextMelody.type === 'note') {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>scheduleSlurTone(</p>
+<p class="p1"><span class="Apple-converted-space">                </span>ctx,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>event.midi,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>nextMelody.midi,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>now + event.beat * secondsPerBeat,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>event.duration * secondsPerBeat,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>nextMelody.duration * secondsPerBeat * 0.96,</p>
+<p class="p1"><span class="Apple-converted-space">                </span>{</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>type: 'triangle',</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>gain: 0.16,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>attack: 0.006,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>release: 0.36,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>reverbSend: 0.045,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>filter: { type: 'lowpass', frequency: 2600, q: 0.35 },</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>vibratoDepth: 0,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>vibratoRate: 5.4,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>drive: 0</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>);</p>
+<p class="p1"><span class="Apple-converted-space">              </span>melodyIndex += 1;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>continue;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>var isLegatoNote = previous &amp;&amp; previous.type === 'note' &amp;&amp; Math.abs(previous.midi - event.midi) &lt;= 7;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>var slideFrom = isLegatoNote ? previous.midi : null;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>scheduleTone(ctx, event.midi, now + event.beat * secondsPerBeat, event.duration * secondsPerBeat * 0.98, {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>type: 'triangle',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>gain: followsGrace ? 0.15 : 0.14,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>attack: followsGrace ? 0.002 : 0.008,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>release: isLegatoNote ? 0.42 : 0.34,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>sustain: 0.54,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>overlap: isLegatoNote ? secondsPerBeat * 0.04 : 0,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>slideFrom: null,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>slideTime: 0.02,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>reverbSend: 0.045,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>filter: { type: 'lowpass', frequency: 2600, q: 0.35 }</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>scheduleTone(ctx, event.midi + 12, now + event.beat * secondsPerBeat, event.duration * secondsPerBeat * 0.92, {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>type: 'sine',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>gain: 0.045,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>attack: 0.006,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>release: isLegatoNote ? 0.36 : 0.28,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>sustain: 0.46,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>reverbSend: 0.035,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>filter: { type: 'lowpass', frequency: 4200, q: 0.25 },</p>
+<p class="p1"><span class="Apple-converted-space">              </span>vibratoDepth: 0,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>vibratoRate: 5.4,</p>
+<p class="p1"><span class="Apple-converted-space">              </span>drive: 0</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (accompSelect.value === 'on') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>chordEvents.forEach(function(event, index) {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>var nextBeat = chordEvents[index + 1] ? chordEvents[index + 1].beat : event.beat + 4;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>var chordDuration = Math.max(0.4, (nextBeat - event.beat) * secondsPerBeat * 1.2);</p>
+<p class="p1"><span class="Apple-converted-space">              </span>var start = now + event.beat * secondsPerBeat;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>chordVoicing(event.name).forEach(function(midi, noteIndex) {</p>
+<p class="p1"><span class="Apple-converted-space">                </span>scheduleTone(ctx, midi, start + noteIndex * 0.012, chordDuration, {</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>type: 'sine',</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>gain: 0.03,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>attack: 0.08,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>release: 0.65,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>sustain: 0.78,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>overlap: secondsPerBeat * 0.2,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>reverbSend: 0.09,</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>filter: { type: 'lowpass', frequency: 1300, q: 0.45 }</p>
+<p class="p1"><span class="Apple-converted-space">                </span>});</p>
+<p class="p1"><span class="Apple-converted-space">              </span>});</p>
+<p class="p1"><span class="Apple-converted-space">            </span>});</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>var totalBeats = totalBeatsFromEvents(allEvents);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>timers.push(window.setTimeout(function() {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>setStatus('再生が終了しました。', false);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}, Math.max(800, (totalBeats * secondsPerBeat + 0.8) * 1000)));</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('再生中です。', false);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}).catch(function(error) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>setStatus('音声再生に失敗しました。まず「テスト音」が鳴るか確認してください。', true);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (error) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>console.error(error);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>setStatus('音声再生に失敗しました。まず「テスト音」が鳴るか確認してください。', true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function runTests() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>var results = [];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>function assert(name, condition) { results.push({ name: name, pass: Boolean(condition) }); }</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('SAMPLE_ABC is not empty', SAMPLE_ABC.length &gt; 20);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('SAMPLE_ABC contains K:C', SAMPLE_ABC.indexOf('K:C') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('SAMPLE_ABC has no blank lines', SAMPLE_ABC.indexOf(LF + LF) === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('sample ABC has no visible chord symbols', hasChordSymbols(SAMPLE_ABC) === false);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('stripChordSymbols removes quoted chords', stripChordSymbols(QUOTE + 'Dm7' + QUOTE + ' D2 | ' + QUOTE + 'G7alt' + QUOTE + ' G2 |').indexOf(QUOTE) === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('tokenizeMelody finds tokens', tokenizeMelody(SAMPLE_ABC).length &gt; 8);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('melody parser finds events', getMelodyEventsFromAbc(SAMPLE_ABC).length &gt; 8);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('melody parser keeps rests', getMelodyEventsFromAbc(SAMPLE_ABC).some(function(event) { return event.type === 'rest'; }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('playback tokenizer keeps grace notes', tokenizeMelodyForPlayback('D2 {^F}G |').some(function(token) { return token === 'GRACE:^F'; }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('playback tokenizer keeps G-sharp grace notes', tokenizeMelodyForPlayback('F A {^G}A c |').some(function(token) { return token === 'GRACE:^G'; }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('playback events include grace notes', getMelodyEventsFromAbc('D2 {^F}G |', true).some(function(event) { return event.type === 'grace'; }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('G-sharp to A grace is handled', getMelodyEventsFromAbc('F A {^G}A c |', true).some(function(event) { return event.type === 'grace' &amp;&amp; event.label === '#G'; }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('grace note uses triplet 1-part pickup', Math.abs(getMelodyEventsFromAbc('D2 {^F}G |', true).filter(function(event) { return event.type === 'grace'; })[0].duration - (1 / 6)) &lt; 0.0001);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('main note after grace keeps triplet 2-parts', Math.abs(getMelodyEventsFromAbc('D2 {^F}G |', true).filter(function(event) { return event.type === 'note'; })[1].duration - (1 / 3)) &lt; 0.0001);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('main note after grace is delayed inside its beat', getMelodyEventsFromAbc('D2 {^F}G |', true).filter(function(event) { return event.type === 'note'; })[1].beat &gt; 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('score events ignore grace notes', getMelodyEventsFromAbc('D2 {^F}G |').some(function(event) { return event.type === 'grace'; }) === false);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('sample etude total beats align to 4/4 bars', isAlignedToFourBeats(getMelodyEventsFromAbc(SAMPLE_ABC)) === true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('sample etude has 16 bars', totalBeatsFromEvents(getMelodyEventsFromAbc(SAMPLE_ABC)) === 64);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('bar 3 is corrected to 4 beats', getMelodyEventsFromAbc('E2 z G B ^F G d |').reduce(function(sum, event) { return sum + event.duration; }, 0) === 4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('G altered bar contains Db and Eb colors', getMelodyEventsFromAbc('_B _A G B _D _E F G |').some(function(event) { return event.label === 'bD'; }) &amp;&amp; getMelodyEventsFromAbc('_B _A G B _D _E F G |').some(function(event) { return event.label === 'bE'; }));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('flat B is drawn on B staff position', parseAbcStaffStep('_B') === parseAbcStaffStep('B'));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('flat A is drawn on A staff position', parseAbcStaffStep('_A') === parseAbcStaffStep('A'));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('flat D is drawn on D staff position', parseAbcStaffStep('_D') === parseAbcStaffStep('D'));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('quarter note duration is 1 beat', parseDurationBeats('D2') === 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('eighth note duration is 0.5 beat', parseDurationBeats('D') === 0.5);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('quarter note is open notehead', noteHeadAttrs(1).fill === '#fff');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('eighth note has stem and flag', noteHeadAttrs(0.5).stem === true &amp;&amp; noteHeadAttrs(0.5).flag === true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('sample melody ends on high c for stable score rendering', SAMPLE_ABC.trim().endsWith('c |'));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('sample chord chart has 16 bars', parseChordText(SAMPLE_CHORDS).length === 16);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('parseChordText accepts one-line chart', parseChordText('Dm7 | G7alt | Cmaj7 | Am7 |').length === 4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('parseChordText accepts multiline chart', parseChordText('Dm7 | G7alt' + LF + 'Cmaj7 | Am7').length === 4);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('Cmaj7(#11) voicing includes F# color', chordVoicing('Cmaj7(#11)').indexOf(78) !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('previous major chord chart starts with Dm7', parseChordText(SAMPLE_CHORDS)[0] === 'Dm7');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('C Major phrase is restored in ABC sample', SAMPLE_ABC.indexOf('K:C') !== -1 &amp;&amp; SAMPLE_ABC.indexOf('E2 z G B ^F G d') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('textarea tag exists', document.getElementById('abcInput') !== null);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('chord textarea exists', document.getElementById('chordInput') !== null);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('score tag exists', document.getElementById('score') !== null);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('buttons exist', document.getElementById('playBtn') !== null &amp;&amp; document.getElementById('testBtn') !== null);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('testSound uses scheduleTone', String(testSound).indexOf('scheduleTone') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('stopAudio keeps AudioContext for mobile', String(stopAudio).indexOf('audioContext.close') === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('unlock audio button exists', document.getElementById('unlockAudioBtn') !== null);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('unlockAudio function exists', typeof unlockAudio === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('direct mobile beep function exists', typeof playDirectBeep === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('unlockAudio plays audible confirmation beep', String(unlockAudio).indexOf('playDirectBeep') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('custom renderer function exists', typeof renderScore === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('rest drawing function exists', typeof drawRest === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('staff position function exists', typeof staffYForStep === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('output chain setup function exists', typeof setupOutputChain === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('scheduleTone supports smoothing options', String(scheduleTone).indexOf('slideFrom') !== -1 &amp;&amp; String(scheduleTone).indexOf('release') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('tone engine has vibrato support available', String(scheduleTone).indexOf('vibratoDepth') !== -1 &amp;&amp; String(scheduleSlurTone).indexOf('vibratoDepth') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('tone engine has gentle drive support available', typeof makeDriveCurve === 'function' &amp;&amp; String(scheduleTone).indexOf('createWaveShaper') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('slur tone scheduler exists', typeof scheduleSlurTone === 'function');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('slur keeps grace pitch before sliding', String(scheduleSlurTone).indexOf('graceHoldEnd') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('slur holds grace pitch longer', String(scheduleSlurTone).indexOf('graceDuration * 0.56') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('slur makes grace portion more audible', String(scheduleSlurTone).indexOf('targetGain * 0.94') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('grace-to-main uses one oscillator slur', String(playAudio).indexOf('scheduleSlurTone') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('grace slur playback is slightly louder', String(playAudio).indexOf('gain: 0.145') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('melody playback uses piano-like triangle tone', String(playAudio).indexOf("type: 'triangle'") !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('melody playback disables sax vibrato', String(playAudio).indexOf('vibratoDepth: 4.5') === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('melody playback disables sax drive', String(playAudio).indexOf('drive: 0.16') === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('playAudio no longer depends on visualObj before sounding', String(playAudio).indexOf('if (!visualObj) return') === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('playAudio is non-async function for compatibility', String(playAudio).indexOf('async function') === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('melody playback is one octave lower', String(playAudio).indexOf('event.midi + 24') === -1 &amp;&amp; String(playAudio).indexOf('event.midi + 12, now') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('main note after grace is gently accented', String(playAudio).indexOf('followsGrace ? 0.15') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('piano melody does not slide between normal notes', String(playAudio).indexOf('slideFrom: null') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('G-sharp to A slide distance is smooth', Math.abs(parseAbcPitch('^G') - parseAbcPitch('A')) &lt;= 5);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('main note after grace has legato attack', String(playAudio).indexOf('followsGrace ? 0.0001') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('piano melody uses short slide time setting', String(playAudio).indexOf('slideTime: 0.02') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('legato notes have softer attack', String(playAudio).indexOf('isLegatoNote ? 0.006') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('legato notes overlap more', String(playAudio).indexOf('isLegatoNote ? secondsPerBeat * 0.18') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('grace note no longer uses separate oscillator settings in playAudio', String(playAudio).indexOf('isGrace ? 0.58 : 0.96') === -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('slur avoids separate grace oscillator clicks', String(playAudio).indexOf('melodyIndex += 1') !== -1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>assert('grace note no longer steals time from previous note', getMelodyEventsFromAbc('D2 {^F}G |', true).filter(function(event) { return event.type === 'grace'; })[0].beat === 1);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>var html = ['&lt;strong&gt;Self tests&lt;/strong&gt;', '&lt;ul&gt;'];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>results.forEach(function(result) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>html.push('&lt;li class="' + (result.pass ? 'ok' : 'error') + '"&gt;' + (result.pass ? 'OK: ' : 'NG: ') + result.name + '&lt;/li&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>html.push('&lt;/ul&gt;');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>testPanel.innerHTML = html.join('');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return results.every(function(result) { return result.pass; });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('renderBtn').addEventListener('click', function() { renderScore(true); });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('unlockAudioBtn').addEventListener('click', unlockAudio);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('playBtn').addEventListener('click', playAudio);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('stopBtn').addEventListener('click', function() { stopAudio(true); });</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('testBtn').addEventListener('click', testSound);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>document.getElementById('sampleBtn').addEventListener('click', function() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>abcInput.value = SAMPLE_ABC;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>chordInput.value = SAMPLE_CHORDS;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tempoInput.value = 112;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderScore(true);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>runTests();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tempoInput.addEventListener('change', function() { renderScore(true); });</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>renderScore(true);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>runTests();</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p1">&lt;/body&gt;</p>
+<p class="p1">&lt;/html&gt;</p>
+</body>
+</html>
